@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
     locked: (req, res, next) => {
-        const token = req.headers.suthorization;
+        const token = req.headers.authorization;
 
         if (token) {
             jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
@@ -22,7 +22,7 @@ module.exports = {
             });
         }
     },
-    gToken: (req, res, next) => {
+    generateToken: (user) => {
         const payload = {
             username: user.username,
             department: user.department,
@@ -36,7 +36,7 @@ module.exports = {
 
         return jwt.sign(payload, secret, options);
     },
-    checkRole: (req, res, next) => {
+    checkRole: (role) => {
 
     },
 }
