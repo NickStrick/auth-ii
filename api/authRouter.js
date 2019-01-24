@@ -14,11 +14,20 @@ router.post('/register', (req, res) => {
     const hash = bcrypt.hashSync(creds.password, 14)
 
     creds.password = hash;
-
+    // console.log(creds);
     db('users')
         .insert(creds)
         .then(ids => {
-            res.status(201).json(ids);
+            db('users')
+                .where({
+                    username: creds.username
+                })
+                .first()
+                .then(user => {
+                    const token = ware.generateToken(user);
+                    res.status(201).json({ ids, user, token });
+                })
+
         })
         .catch(err => res.status(500).json({
             err,

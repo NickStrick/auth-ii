@@ -19,13 +19,17 @@ class Signin extends React.Component {
 
         const endpoint = `${process.env.REACT_APP_API_URL}/api/login`;
 
+
         axios
             .post(endpoint, this.state)
             .then(res => {
                 console.log(res)
                 localStorage.setItem('jwt', res.data.token);
+                this.props.history.push('/users')
             })
             .catch(err => console.error(err));
+
+
     };
 
     render() {

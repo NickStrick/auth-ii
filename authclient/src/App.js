@@ -29,8 +29,8 @@ class App extends Component {
           </nav>
         </header>
         <div className='main'>
-          <Route path="/signup" component={SignUp} />
-          <Route path="/signin" component={Signin} />
+          <Route path="/signup" render={props => (<SignUp {...props} />)} />
+          <Route path="/signin" render={props => (<Signin {...props} />)} />
           <Route path="/users" component={Users} />
         </div>
       </div>
