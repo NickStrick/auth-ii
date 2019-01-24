@@ -9,22 +9,6 @@ module.exports = router;
 const db = require('../data/db.js');
 const ware = require('./middleware.js');
 
-function generateToken(user) {
-    const payload = {
-        username: user.username,
-        department: user.department,
-
-    };
-
-    const secret = process.env.JWT_SECRET;
-
-    const options = {
-        expiresIn: '45m',
-    };
-
-    return jwt.sign(payload, secret, options);
-}
-
 router.post('/register', (req, res) => {
     const creds = req.body;
     const hash = bcrypt.hashSync(creds.password, 14)
